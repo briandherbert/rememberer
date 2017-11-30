@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "93694573720",
+    "firebase_url": "https://rememberer-15cb3.firebaseio.com",
+    "project_id": "rememberer-15cb3",
+    "storage_bucket": "rememberer-15cb3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93694573720:android:bc159865d4c8fe52",
+        "android_client_info": {
+          "package_name": "com.burningaltar.rememberer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "93694573720-h49jhad9l05srn3b6b9lcfvkm879gfeh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.burningaltar.rememberer",
+            "certificate_hash": "7c60ea4c05f29fe0ae022fa31c0dcb766285b225"
+          }
+        },
+        {
+          "client_id": "93694573720-p31qp30omivbf3dthk7le32n0f54ajgq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn_52icJ-O0U1xOzd5tK_1JvriXN_4f9w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "93694573720-p31qp30omivbf3dthk7le32n0f54ajgq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
