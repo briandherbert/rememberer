@@ -5,13 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -35,7 +32,7 @@ class FirebaseLoginFragment : Fragment() {
             var args = Bundle()
             args.putSerializable(KEY_PROVIDERS, providers)
 
-            fragmentManager.beginTransaction().add(loginFragment, FirebaseLoginFragment.javaClass.simpleName).commitAllowingStateLoss()
+            fragmentManager.beginTransaction().add(loginFragment, FirebaseLoginFragment::class.java.simpleName).commitAllowingStateLoss()
         }
     }
 
