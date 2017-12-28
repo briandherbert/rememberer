@@ -2,6 +2,7 @@ package com.burningaltar.rememberer
 
 import android.app.Activity
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.util.Log
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.base_activity.*
 import java.util.*
 import javax.inject.Inject
@@ -20,21 +22,22 @@ import javax.inject.Inject
 class FirebaseLoginActivity : AppCompatActivity() {
     val RC_LOGIN = 1;
 
-    lateinit var mFirebaseLoginViewModel: FirebaseLoginViewModel
+    @Inject
+    lateinit var mUserRepo : IUserRepo
 
     @Inject
-    lateinit var userRepo : IUserRepo
+    lateinit var mViewModelFactory : ViewModelProvider.Factory
 
     public override fun onCreate(bundle: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(bundle)
         setContentView(R.layout.base_activity)
 
-        DaggerUserComponent.builder().userRepoModule(UserRepoModule()).build().inject(this);
-        Log.v("blarg", "repo name : " + userRepo.getName())
+        Log.v("blarg", "repo name : " + mUserRepo.getName())
 
         // TODO: Make generic
-        mFirebaseLoginViewModel = ViewModelProviders.of(this).get(FirebaseLoginViewModel::class.java)
-        mFirebaseLoginViewModel.firebaseUserLiveData.observe(this, Observer<FirebaseUser> { user -> onUserChanged(user) })
+        var userViewModel = ViewModelProviders.of(this, mViewModelFactory).get(UserViewModel::class.java)
+//        userViewModel.getUser().observe(this, Observer<User> { user -> onUserChanged(user) })
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -48,7 +51,7 @@ class FirebaseLoginActivity : AppCompatActivity() {
         }
     }
 
-    fun onUserChanged(user: FirebaseUser?) {
+    fun onUserChanged(user: User?) {
         if (user == null) onLoggedOut() else onLoggedIn()
     }
 

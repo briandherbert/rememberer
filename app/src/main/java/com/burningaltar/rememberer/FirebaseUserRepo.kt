@@ -8,21 +8,21 @@ import com.google.firebase.auth.FirebaseUser
  * Created by bherbert on 12/22/17.
  */
 class FirebaseUserRepo : IUserRepo {
-    override fun getName() : String {
+    override fun getName(): String {
         return "firebase user repo"
     }
 
-    private val userData : MutableLiveData<User> = MutableLiveData();
+    private val userData: MutableLiveData<User> = MutableLiveData();
 
-    override fun getUser() : MutableLiveData<User> {
-        return userData;
+    override fun getUser(): MutableLiveData<User> {
+        return userData
     }
 
     override fun notifyUpdated() {
         userData.value = toUser(FirebaseAuth.getInstance().currentUser)
     }
 
-    fun toUser(fbUser : FirebaseUser?) : User? {
+    private fun toUser(fbUser: FirebaseUser?): User? {
         if (fbUser == null) {
             return null
         } else {
