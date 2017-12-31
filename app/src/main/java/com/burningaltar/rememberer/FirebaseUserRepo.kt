@@ -1,32 +1,31 @@
 package com.burningaltar.rememberer
 
+import android.app.Application
 import android.arch.lifecycle.MutableLiveData
-import android.content.Context
+import android.content.Intent
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Created by bherbert on 12/22/17.
  */
-class FirebaseUserRepo : IUserRepo {
+class FirebaseUserRepo(app :Application) : UserRepo(app) {
     val TAG = "FirebaseUserRepo"
     private val userData: MutableLiveData<User> = MutableLiveData();
 
     override fun getName(): String {
-        return "firebase user repo"
+        return "firebase user repo "
     }
 
     init {
-        Log.v("blarg", "firebase repo init " + this + " app is ")
-
+        Log.v(TAG, "firebase repo init " + this + " app is " + app)
         notifyUpdated()
     }
 
     override fun getUserData(): MutableLiveData<User> {
-        Log.v("blarg", "returning user data " + userData + " on repo " + this);
+        Log.v(TAG, "returning user data " + userData + " on repo " + this);
         return userData
     }
 
@@ -41,5 +40,14 @@ class FirebaseUserRepo : IUserRepo {
         } else {
             return User(fbUser.displayName ?: "No name")
         }
+    }
+
+    override fun login(creds : Array<String>?) {
+        app.startActivity(Intent(app, FirebaseLoginActivity::class.java))
+    }
+
+    override fun logout() {
+        FirebaseAuth.getInstance().signOut()
+        notifyUpdated()
     }
 }

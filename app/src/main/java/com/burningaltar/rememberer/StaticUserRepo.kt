@@ -1,11 +1,20 @@
 package com.burningaltar.rememberer
 
+import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 
 /**
  * Created by bherbert on 12/27/17.
  */
-class StaticUserRepo : IUserRepo {
+class StaticUserRepo(app : Application) : UserRepo(app) {
+    override fun login(creds: Array<String>?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun logout() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getUserData(): MutableLiveData<User> {
         var userData : MutableLiveData<User> = MutableLiveData()
         userData.value = User("bob")

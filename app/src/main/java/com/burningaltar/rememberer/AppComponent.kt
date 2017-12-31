@@ -2,16 +2,14 @@ package com.burningaltar.rememberer
 
 import android.app.Application
 import dagger.Component
-import dagger.Provides
 import javax.inject.Singleton
 import dagger.BindsInstance
-import dagger.android.support.AndroidSupportInjectionModule
 
 /**
  * Created by bherbert on 12/28/17.
  */
 @Singleton
-@Component(modules = arrayOf(AppModule::class, FirebaseActivityModule::class, ViewModelModule::class, UserRepoModule::class))
+@Component(modules = arrayOf(FirebaseActivityModule::class, ViewModelModule::class, UserRepoModule::class))
 interface AppComponent {
 
     @Component.Builder
@@ -23,4 +21,5 @@ interface AppComponent {
     }
 
     fun inject(app: FirebaseApplication)
+    fun inject(contextWanter : ContextWanter)
 }

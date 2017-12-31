@@ -1,5 +1,6 @@
 package com.burningaltar.rememberer
 
+import android.app.Application
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 class UserRepoModule {
     @Provides
     @Singleton
-    fun userRepo() : IUserRepo {
-        return FirebaseUserRepo();
+    fun userRepo(app : Application) : UserRepo {
+        return FirebaseUserRepo(app);
     }
 }

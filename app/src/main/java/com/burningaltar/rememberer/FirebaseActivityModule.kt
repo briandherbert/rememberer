@@ -10,4 +10,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class FirebaseActivityModule {
     @ContributesAndroidInjector
     abstract fun contributeFirebaseLoginActivityInjector() : FirebaseLoginActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributeLoginActivityInjector() : LoginActivity
 }
