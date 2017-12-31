@@ -1,6 +1,5 @@
 package com.burningaltar.rememberer
 
-import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
@@ -10,7 +9,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.base_activity.*
 import java.util.*
@@ -23,42 +21,33 @@ class FirebaseLoginActivity : AppCompatActivity() {
     val RC_LOGIN = 1;
 
     @Inject
-    lateinit var mUserRepo : IUserRepo
+    lateinit var mUserRepo: IUserRepo   // We are the source of the repo's data since FirebaseAuth uses onActivityResult
 
     @Inject
-    lateinit var mViewModelFactory : ViewModelProvider.Factory
+    lateinit var mViewModelFactory: ViewModelProvider.Factory
 
     public override fun onCreate(bundle: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(bundle)
         setContentView(R.layout.base_activity)
 
-        Log.v("blarg", "repo name : " + mUserRepo.getName())
-
-        // TODO: Make generic
-        var userViewModel = ViewModelProviders.of(this, mViewModelFactory).get(UserViewModel::class.java)
-//        userViewModel.getUser().observe(this, Observer<User> { user -> onUserChanged(user) })
+        val userViewModel: UserViewModel = ViewModelProviders.of(this, mViewModelFactory).get(UserViewModel::class.java)
+        userViewModel.getUserData().observe(this, Observer<User> { user -> if (user == null) onLoggedOut() else onLoggedIn() })
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.v("blarg", "on result " + requestCode + ":" + resultCode)
 
-        if (requestCode == RC_LOGIN && resultCode == Activity.RESULT_OK) {
-            onLoggedIn()
-        } else {
-            onLoggedOut()
+        if (requestCode == RC_LOGIN) {
+            mUserRepo.notifyUpdated()   // Anyone can get the FirebaseAuth user from its singleton, but we'll just tell the repo to check it.
         }
-    }
-
-    fun onUserChanged(user: User?) {
-        if (user == null) onLoggedOut() else onLoggedIn()
     }
 
     fun onLoggedOut() {
         lblMessage.text = "Not logged in"
         btnLoginOrOut.text = "Log in"
         btnLoginOrOut.setOnClickListener({
+            // This is the whole reason we need an activity or fragment for a repo op
             startActivityForResult(AuthUI.getInstance()
                     .createSignInIntentBuilder()
                     .setAvailableProviders(Arrays.asList(AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
@@ -68,11 +57,13 @@ class FirebaseLoginActivity : AppCompatActivity() {
     }
 
     fun onLoggedIn() {
+        Log.v("blarg", "login")
+
         lblMessage.text = FirebaseAuth.getInstance().currentUser!!.displayName
         btnLoginOrOut.text = "Log out"
         btnLoginOrOut.setOnClickListener({
             FirebaseAuth.getInstance().signOut()
-            onLoggedOut()
+            mUserRepo.notifyUpdated()
         })
     }
 }

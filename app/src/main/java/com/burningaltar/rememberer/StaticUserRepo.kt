@@ -6,7 +6,7 @@ import android.arch.lifecycle.MutableLiveData
  * Created by bherbert on 12/27/17.
  */
 class StaticUserRepo : IUserRepo {
-    override fun getUser(): MutableLiveData<User> {
+    override fun getUserData(): MutableLiveData<User> {
         var userData : MutableLiveData<User> = MutableLiveData()
         userData.value = User("bob")
         return userData
