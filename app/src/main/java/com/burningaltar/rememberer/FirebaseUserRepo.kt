@@ -6,7 +6,6 @@ import android.content.Intent
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import javax.inject.Inject
 
 /**
  * Created by bherbert on 12/22/17.
@@ -43,7 +42,7 @@ class FirebaseUserRepo(app :Application) : UserRepo(app) {
     }
 
     override fun login(creds : Array<String>?) {
-        app.startActivity(Intent(app, FirebaseLoginActivity::class.java))
+        app.startActivity(Intent(app, FirebaseLoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
 
     override fun logout() {

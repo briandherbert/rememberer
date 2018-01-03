@@ -1,21 +1,17 @@
 package com.burningaltar.rememberer
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.ProgressBar
 import com.firebase.ui.auth.AuthUI
-import com.google.firebase.auth.FirebaseAuth
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.base_activity.*
 import java.util.*
 import javax.inject.Inject
 
 /**
+ * Headless activity for logging into firebase
  * Created by bherbert on 11/20/17.
  */
 class FirebaseLoginActivity : AppCompatActivity() {

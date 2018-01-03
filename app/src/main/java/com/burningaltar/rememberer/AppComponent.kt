@@ -21,5 +21,4 @@ interface AppComponent {
     }
 
     fun inject(app: FirebaseApplication)
-    fun inject(contextWanter : ContextWanter)
 }
