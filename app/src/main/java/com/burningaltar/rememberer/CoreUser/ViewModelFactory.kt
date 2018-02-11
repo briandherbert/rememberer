@@ -1,4 +1,4 @@
-package com.burningaltar.rememberer
+package com.burningaltar.rememberer.CoreUser
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider

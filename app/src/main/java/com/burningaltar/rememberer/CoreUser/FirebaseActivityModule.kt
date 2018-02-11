@@ -1,5 +1,6 @@
-package com.burningaltar.rememberer
+package com.burningaltar.rememberer.CoreUser
 
+import com.burningaltar.rememberer.LoginActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -13,4 +14,7 @@ abstract class FirebaseActivityModule {
 
     @ContributesAndroidInjector
     abstract fun contributeLoginActivityInjector() : LoginActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributeLoginFragmentInjector() : LoginFragment
 }

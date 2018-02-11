@@ -1,8 +1,7 @@
-package com.burningaltar.rememberer
+package com.burningaltar.rememberer.CoreUser
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.util.Log
 import javax.inject.Inject
 
 /**

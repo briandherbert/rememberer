@@ -1,4 +1,4 @@
-package com.burningaltar.rememberer
+package com.burningaltar.rememberer.CoreUser
 
 import android.content.Intent
 import android.os.Bundle

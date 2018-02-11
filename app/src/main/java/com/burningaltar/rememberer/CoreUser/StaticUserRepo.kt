@@ -1,4 +1,4 @@
-package com.burningaltar.rememberer
+package com.burningaltar.rememberer.CoreUser
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData

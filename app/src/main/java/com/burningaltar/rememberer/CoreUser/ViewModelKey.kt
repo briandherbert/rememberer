@@ -1,4 +1,4 @@
-package com.burningaltar.rememberer
+package com.burningaltar.rememberer.CoreUser
 
 /**
  * Created by bherbert on 12/27/17.

@@ -21,7 +21,7 @@
         </activity>
 
         <activity
-            android:name=".FirebaseLoginActivity"
+            android:name=".CoreUser.FirebaseLoginActivity"
             android:launchMode="singleInstance" />
     </application>
 </manifest>
